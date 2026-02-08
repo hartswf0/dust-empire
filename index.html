@@ -78,9 +78,82 @@
 
             <a href="music_video.html" class="watch-link" style="margin-top: 1rem;">ENTER FULL EXPERIENCE &rarr;</a>
         </div>
+        </div>
     </section>
 
-    <!-- Footer / Credits -->
+    <!-- Archive Grid Section -->
+    <section id="archive-section" style="padding: 4rem 2rem;">
+        <header style="text-align: center; margin-bottom: 2rem;">
+            <h2 class="fade-in">THE ARCHIVE</h2>
+            <p class="fade-in" style="color: var(--accent-color); font-family: var(--font-serif);">Raw Materials</p>
+        </header>
+
+        <div class="filter-bar fade-in">
+            <button class="filter-btn active" onclick="filterClips('all')">ALL</button>
+            <button class="filter-btn" onclick="filterClips('top')">TOP</button>
+            <button class="filter-btn" onclick="filterClips('bottom')">BOTTOM</button>
+        </div>
+
+        <div id="archive-grid">
+            <!-- Clips injected via JS -->
+        </div>
+    </section>
+
+    <!-- Scripts for Grid -->
+    <script src="clips.js"></script>
+    <script>
+        const grid = document.getElementById('archive-grid');
+
+        function renderClips(filterType) {
+            grid.innerHTML = '';
+            if (typeof CLIPS === 'undefined') {
+                grid.innerHTML = '<p style="text-align:center; padding:2rem;">Loading metadata...</p>';
+                return;
+            }
+
+            CLIPS.forEach(clip => {
+                if (filterType !== 'all' && clip.type !== filterType) return;
+
+                const card = document.createElement('div');
+                card.className = 'clip-card fade-in';
+                card.innerHTML = `
+                    <video class="clip-video" loop muted playsinline onmouseover="this.play()" onmouseout="this.pause()">
+                        <source src="${clip.download_url}" type="video/mp4">
+                    </video>
+                    <div class="clip-info">
+                        <div class="clip-name" title="${clip.filename}">${clip.filename}</div>
+                        <a href="${clip.download_url}" download class="download-btn">⇩</a>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+
+            // Re-observe new elements for fade-in
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.clip-card').forEach(el => observer.observe(el));
+        }
+
+        function filterClips(type) {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase() === type || (type === 'all' && btn.innerText === 'ALL')) {
+                    btn.classList.add('active');
+                }
+            });
+            renderClips(type);
+        }
+
+        // Initialize grid
+        window.addEventListener('load', () => filterClips('all'));
+    </script>
     <footer>
         <h3 class="gold-text">DUST EMPIRE</h3>
         <ul class="credits-list">
