@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+
+# Large Video Files (Originals)
+dust_empire_full.mp4
+dust_empire_scored.mp4
+dust_empire_music_video.mp4
+
+# Allow Chunks
+!*.part*
+
+# OS specific checks
+.DS_Store

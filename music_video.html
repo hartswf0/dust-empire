@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUST EMPIRE | The Music Video</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .back-link {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: var(--font-heading);
+            font-size: 0.9rem;
+            border: 1px solid var(--accent-dim);
+            padding: 0.5rem 1rem;
+            transition: all 0.3s;
+            z-index: 100;
+        }
+
+        .back-link:hover {
+            background: var(--accent-color);
+            color: #000;
+        }
+    </style>
+</head>
+
+<body>
+    <a href="index.html" class="back-link">← RETURN TO EMPIRE</a>
+
+    <section id="music-video-full" style="height: 100vh;">
+        <div class="description fade-in">
+            <h2>The Music Video</h2>
+            <p>A loop of time and sound.</p>
+        </div>
+        <div class="video-wrapper fade-in" style="max-width: 90vh; height: auto;">
+            <video controls autoplay loop poster="">
+                <source src="dust_empire_music_video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>

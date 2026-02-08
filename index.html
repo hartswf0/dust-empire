@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DUST EMPIRE | A Film by Lucy</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="fade-in">
+            <h1>DUST EMPIRE</h1>
+            <p>A Cinematic Journey Through the Grains of Time</p>
+        </div>
+        <div class="laurels fade-in" style="animation-delay: 2s; margin-top: 3rem;">
+            <div class="laurel"><span>★</span>OFFICIAL SELECTION<br>Cannes 2026</div>
+            <div class="laurel"><span>★</span>WINNER<br>Best Visuals</div>
+            <div class="laurel"><span>★</span>NOMINEE<br>Golden Palm</div>
+        </div>
+        <div class="scroll-indicator">⇩</div>
+    </section>
+
+    <!-- The Mosaic Section -->
+    <section id="mosaic">
+        <div class="description fade-in">
+            <h2>The Mosaic</h2>
+            <p>Twelve perspectives. One unified vision. Witness the fragmentation of reality reconstructed into a
+                cohesive masterpiece.</p>
+        </div>
+        <div class="video-wrapper fade-in">
+            <video controls poster="">
+                <source src="dust_empire_mosaic.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- The Full Film Section -->
+    <section id="film">
+        <div class="description fade-in">
+            <h2>The Empire</h2>
+            <p>The complete saga. Immerse yourself in the full narrative arc of the Dust Empire.</p>
+        </div>
+        <div class="video-wrapper fade-in">
+            <video controls poster="">
+                <source src="dust_empire_scored.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+
+    <!-- The Music Video Section -->
+    <section id="music-video">
+        <div class="description fade-in">
+            <h2>The Soundtrack</h2>
+            <p>A visual loop experience set to the original motion picture score.</p>
+
+            <!-- Audio Player -->
+            <div style="margin: 1rem 0 2rem 0;">
+                <p style="font-size: 0.9rem; color: #888; margin-bottom: 0.5rem;">LISTEN TO THE TRACK</p>
+                <audio controls style="width: 100%; max-width: 400px;">
+                    <source src="music/1755d990-c90e-4d30-929a-17c7fce1522c.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+
+            <!-- Video Player (Restored) -->
+            <div class="video-wrapper fade-in">
+                <video controls poster="">
+                    <source src="dust_empire_music_video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <a href="music_video.html" class="watch-link" style="margin-top: 1rem;">ENTER FULL EXPERIENCE &rarr;</a>
+        </div>
+    </section>
+
+    <!-- Footer / Credits -->
+    <footer>
+        <h3 class="gold-text">DUST EMPIRE</h3>
+        <ul class="credits-list">
+            <li>Directed by Lucy</li>
+            <li>Produced by Gaia</li>
+            <li>Music by The Cosmos</li>
+            <li>Edited with FFmpeg</li>
+        </ul>
+        <p style="margin-top: 2rem; color: #333; font-size: 0.8rem;">© 2026 HOUSEINADIS Studios. All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+        // Simple Intersection Observer for scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    // Reset animation for repeated effects if desired, 
+                    // or just leave it 'visible'
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
