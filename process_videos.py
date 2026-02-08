@@ -239,24 +239,67 @@ def generate_metadata(files):
     import json
     
     clips = []
-    for file in files:
-        basename = os.path.basename(file)
-        # Determine type based on name
-        segment_type = "top" if "_top.mp4" in basename else "bottom"
+    
+    # 1. Source Clips (LUCY VIDS)
+    source_files = sorted(glob.glob(os.path.join(VIDEO_DIR, "*.mp4")))
+    for file in source_files:
+        clips.append({
+            "filename": os.path.basename(file),
+            "path": file,
+            "type": "source",
+            "download_url": os.path.join("LUCY VIDS", os.path.basename(file))
+        })
         
-        # Get duration using ffprobe (if available) or just simple dict
+    # 2. Extra (music videos)
+    extra_files = sorted(glob.glob(os.path.join(OUTPUT_DIR, "music", "*.mp4")))
+    for file in extra_files:
+        clips.append({
+            "filename": os.path.basename(file),
+            "path": file,
+            "type": "extra",
+            "download_url": os.path.join("music", os.path.basename(file))
+        })
+
+    # 3. Split Clips (Top/Bottom) - using files passed in argument which are top/bot splits
+    # Or rescan to be safe
+    split_files = sorted(glob.glob(os.path.join(OUTPUT_DIR, "*_top.mp4")) + glob.glob(os.path.join(OUTPUT_DIR, "*_bot.mp4")))
+    # Filter out the main "dust_empire" ones which are films
+    split_files = [f for f in split_files if "dust_empire" not in os.path.basename(f)]
+    
+    for file in split_files:
+        basename = os.path.basename(file)
+        segment_type = "top" if "_top.mp4" in basename else "bottom"
         clips.append({
             "filename": basename,
             "path": file,
             "type": segment_type,
-            "download_url": basename 
+            "download_url": basename
         })
+
+    # 4. Films (Full length)
+    films = [
+        "dust_empire_full.mp4",
+        "dust_empire_top.mp4",
+        "dust_empire_bot.mp4",
+        "dust_empire_split_mosaic.mp4", 
+        "dust_empire_music_video.mp4"
+    ]
+    
+    for film in films:
+        film_path = os.path.join(OUTPUT_DIR, film)
+        if os.path.exists(film_path):
+            clips.append({
+                "filename": film,
+                "path": film_path,
+                "type": "film",
+                "download_url": film
+            })
         
     js_content = f"const CLIPS = {json.dumps(clips, indent=2)};"
     
     with open(os.path.join(OUTPUT_DIR, "clips.js"), "w") as f:
         f.write(js_content)
-    print("Metadata written to clips.js")
+    print(f"Metadata written to clips.js ({len(clips)} items)")
 
 if __name__ == "__main__":
     main()

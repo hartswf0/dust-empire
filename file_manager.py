@@ -7,7 +7,9 @@ CHUNK_SIZE = 50 * 1024 * 1024 # 50 MB
 LARGE_FILES = [
     "dust_empire_full.mp4",
     "dust_empire_scored.mp4",
-    "dust_empire_music_video.mp4"
+    "dust_empire_music_video.mp4",
+    "dust_empire_top.mp4",
+    "dust_empire_bot.mp4"
 ]
 
 def calculate_md5(file_path):

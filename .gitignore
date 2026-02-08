@@ -8,6 +8,8 @@ venv/
 dust_empire_full.mp4
 dust_empire_scored.mp4
 dust_empire_music_video.mp4
+dust_empire_top.mp4
+dust_empire_bot.mp4
 
 # Allow Chunks
 !*.part*
